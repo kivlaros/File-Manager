@@ -1,6 +1,7 @@
 import { changeDir } from "./fs/change-dir.js";
 import { list } from "./fs/list.js";
 import {readFileStream} from "./fs/read-file.js"
+import { create } from "./fs/create.js";
 
 export default async function router(comandText){
     const errorMessage = 'Invalid input'
@@ -20,7 +21,10 @@ export default async function router(comandText){
                 break
             case 'cat':
                 await readFileStream(comandTextArr)
-                break          
+                break        
+            case 'add':
+                await create(comandTextArr)
+                break    
         }
     }else{
         throw new Error(errorMessage)
