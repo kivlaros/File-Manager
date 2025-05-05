@@ -5,6 +5,7 @@ import { create } from "./fs/create.js";
 import { getPath } from "./assist/get-path.js";
 import { compress } from "./zip/compress.js";
 import { decompress } from "./zip/decompress.js";
+import { calculateHash } from "./hash/hash.js";
 
 export default async function router(comandText){
     const errorMessage = 'Invalid input'
@@ -39,6 +40,9 @@ export default async function router(comandText){
                 await decompress(comandTextArr)
                 console.log('decompress finished')
                 break      
+            case 'hash':
+                await calculateHash(comandTextArr)
+                break    
         }
     }else{
         throw new Error(errorMessage)
