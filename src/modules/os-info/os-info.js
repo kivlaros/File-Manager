@@ -7,7 +7,7 @@ export function osInfo(comandTextArr) {
         if(commandList.includes(comandTextArr[1])){
             switch(comandTextArr[1]){
                 case '--EOL':
-                    console.log('OS default system End-Of-Line : ' + os.EOL);
+                    console.log('OS default system End-Of-Line : ' + JSON.stringify(os.EOL));
                     break
                 case '--cpus':
                     console.log('OS information about each logical CPU core : ');
@@ -16,10 +16,10 @@ export function osInfo(comandTextArr) {
                     })
                     break
                 case '--homedir':
-                    console.log('OS default directory for temp files : ' + os.tmpdir());
+                    console.log('OS home directory : ' + os.homedir());
                     break
                 case '--username':
-                    console.log("Operating system username: " + os.type());
+                    console.log("Operating system username: " + os.userInfo().username);
                     break        
                 case '--architecture':
                     console.log("CPU architecture: " + os.arch());
