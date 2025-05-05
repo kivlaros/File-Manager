@@ -7,6 +7,7 @@ export function getPath(comandTextArr, onePath = true) {
   if (onePath) {
     result = path.resolve(currentPath, comandTextArr[0]);
   } else {
+    if (!comandTextArr[1]) throw new Error("Operation failed");
     const sourcePath = path.resolve(currentPath, comandTextArr[0]);
     const destPath = path.resolve(currentPath, comandTextArr[1]);
     result = {
