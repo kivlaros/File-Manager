@@ -2,7 +2,6 @@ import path from 'path';
 
 
 export function changeDir(comandTextArr){
-    const errorMessage = 'Invalid input'
     try{
         if(comandTextArr[0]=='up'){
             const parentDir = path.join(process.cwd(), '..');
@@ -11,7 +10,6 @@ export function changeDir(comandTextArr){
             process.chdir(comandTextArr[1])
         }
     }catch(err){
-        console.log(err.message)
-        throw new Error(errorMessage)
+        throw new Error(err.message)
     }
 }

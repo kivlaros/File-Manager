@@ -14,59 +14,80 @@ import { deleteFile } from "./fs/delete.js";
 
 export default async function router(comandText){
     const errorMessage = 'Invalid input'
-    const commandList = ['ls', 'cd', 'up', 'cat', 'add', 'rm', 'rn','cp','mv','.exit', 'os', 'hash', 'compress', 'decompress', 'clear', 'test', 'mkdir'];
+    const commandList = ['ls', 'cd', 'up', 'cat', 'add', 'rm', 'rn','cp','mv','.exit', 'os', 'hash', 'compress', 'decompress', 'mkdir'];
     const comandTextArr = comandText.split(' ')
-    if(commandList.includes(comandTextArr[0])){
-        switch(comandTextArr[0]){
-            case 'ls':
-                await list()
-                break
-            case 'cd':
-                changeDir(comandTextArr)
-                break
-            case 'up':
-                changeDir(comandTextArr)
-                break
-            case 'cat':
-                await readFileStream(comandTextArr)
-                break        
-            case 'add':
-                await create(comandTextArr)
-                break
-            case 'test':
-                getPath(comandTextArr)
-                break   
-            case 'compress':
-                await compress(comandTextArr)
-                console.log('compress finished')
-                break  
-            case 'decompress':
-                await decompress(comandTextArr)
-                console.log('decompress finished')
-                break      
-            case 'hash':
-                await calculateHash(comandTextArr)
-                break
-            case 'os':
-                osInfo(comandTextArr)
-                break
-            case 'mkdir':
-                await createDir(comandTextArr)
-                break        
-            case 'rn':
-                await rename(comandTextArr)
-                break
-            case 'cp':
-                await copyMove(comandTextArr)
-                break    
-            case 'mv':
-                await copyMove(comandTextArr, true)
-                break
-            case 'rm':
-                await deleteFile(comandTextArr)
-                break       
+    try{
+        if(commandList.includes(comandTextArr[0])){
+            switch(comandTextArr[0]){
+                case 'ls':
+                    await list()
+                    break
+                case 'cd':
+                    changeDir(comandTextArr)
+                    console.log(gray('the directory has been changed'))
+                    break
+                case 'up':
+                    changeDir(comandTextArr)
+                    console.log(gray('the directory has been changed'))
+                    break
+                case 'cat':
+                    await readFileStream(comandTextArr)
+                    console.log(gray('the reading is completed'))
+                    break        
+                case 'add':
+                    await create(comandTextArr)
+                    console.log(gray('a new file has been created'))
+                    break  
+                case 'compress':
+                    await compress(comandTextArr)
+                    console.log(gray('compress finished'))
+                    break  
+                case 'decompress':
+                    await decompress(comandTextArr)
+                    console.log(gray('decompress finished'))
+                    break      
+                case 'hash':
+                    await calculateHash(comandTextArr)
+                    console.log(gray('hash received'))
+                    break
+                case 'os':
+                    osInfo(comandTextArr)
+                    break
+                case 'mkdir':
+                    await createDir(comandTextArr)
+                    console.log(gray('a new directory has been created'))
+                    break        
+                case 'rn':
+                    await rename(comandTextArr)
+                    console.log(gray('the file has been renamed'))
+                    break
+                case 'cp':
+                    await copyMove(comandTextArr)
+                    console.log(gray('the file is copied'))
+                    break    
+                case 'mv':
+                    await copyMove(comandTextArr, true)
+                    console.log(gray('the file has been moved'))
+                    break
+                case 'rm':
+                    await deleteFile(comandTextArr)
+                    console.log(gray('the file has been deleted'))
+                    break       
+            }
+        }else{
+            throw new Error(errorMessage)
         }
-    }else{
-        throw new Error(errorMessage)
+    }catch(err){
+        if(err.message!=='Invalid input'){
+            console.log('Operation failed')
+        }else{
+            console.log(err.message)
+        }
+    }finally{
+        console.log( process.cwd())
     }
+}
+
+function gray(text) {
+    return `\x1b[90m${text}\x1b[0m`;
 }
