@@ -8,6 +8,7 @@ import { decompress } from "./zip/decompress.js";
 import { calculateHash } from "./hash/hash.js";
 import { osInfo } from "./os-info/os-info.js";
 import { createDir } from "./fs/create-dir.js";
+import { rename } from "./fs/rename.js";
 
 export default async function router(comandText){
     const errorMessage = 'Invalid input'
@@ -50,6 +51,9 @@ export default async function router(comandText){
             case 'mkdir':
                 await createDir(comandTextArr)
                 break        
+            case 'rn':
+                await rename(comandTextArr)
+                break
         }
     }else{
         throw new Error(errorMessage)
