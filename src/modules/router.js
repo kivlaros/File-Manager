@@ -7,10 +7,11 @@ import { compress } from "./zip/compress.js";
 import { decompress } from "./zip/decompress.js";
 import { calculateHash } from "./hash/hash.js";
 import { osInfo } from "./os-info/os-info.js";
+import { createDir } from "./fs/create-dir.js";
 
 export default async function router(comandText){
     const errorMessage = 'Invalid input'
-    const commandList = ['ls', 'cd', 'up', 'cat', 'add', 'rm', 'rn','cp','mv','.exit', 'os', 'hash', 'compress', 'decompress', 'clear', 'test'];
+    const commandList = ['ls', 'cd', 'up', 'cat', 'add', 'rm', 'rn','cp','mv','.exit', 'os', 'hash', 'compress', 'decompress', 'clear', 'test', 'mkdir'];
     const comandTextArr = comandText.split(' ')
     if(commandList.includes(comandTextArr[0])){
         switch(comandTextArr[0]){
@@ -19,7 +20,6 @@ export default async function router(comandText){
                 break
             case 'cd':
                 changeDir(comandTextArr)
-                console.log(comandTextArr[0])
                 break
             case 'up':
                 changeDir(comandTextArr)
@@ -46,7 +46,10 @@ export default async function router(comandText){
                 break
             case 'os':
                 osInfo(comandTextArr)
-                break       
+                break
+            case 'mkdir':
+                await createDir(comandTextArr)
+                break        
         }
     }else{
         throw new Error(errorMessage)
