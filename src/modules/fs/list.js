@@ -11,7 +11,11 @@ export const list = async () => {
       return [elem, type];
     });
     const tableFiles = await Promise.all(tableFilesPromise);
-    console.table(tableFiles);
+    const tableFilesObj = tableFiles.map(([name, type]) => ({
+      Name: name,
+      Type: type
+    }));
+    console.table(tableFilesObj);
   } catch (err) {
     throw new Error(err.message);
   }
@@ -23,7 +27,7 @@ async function getPathType(path) {
 
     if (stats.isFile()) return "file";
     if (stats.isDirectory()) return "directory";
-    return "other"; // для симлинков, устройств и т.д.
+    return "other";
   } catch (error) {
     return "no access";
   }

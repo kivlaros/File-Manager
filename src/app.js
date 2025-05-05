@@ -9,6 +9,7 @@ function app() {
   let userName = "Username";
   process.chdir(os.homedir());
   console.log(`Welcome to the File Manager, ${userName}!`);
+  console.log(process.cwd());
   const goodbyeMessage = `Thank you for using File Manager, ${userName}, goodbye!`
 
   const rl = readline.createInterface({
