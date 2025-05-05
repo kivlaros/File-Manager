@@ -4,6 +4,7 @@ import {readFileStream} from "./fs/read-file.js"
 import { create } from "./fs/create.js";
 import { getPath } from "./assist/get-path.js";
 import { compress } from "./zip/compress.js";
+import { decompress } from "./zip/decompress.js";
 
 export default async function router(comandText){
     const errorMessage = 'Invalid input'
@@ -31,8 +32,13 @@ export default async function router(comandText){
                 getPath(comandTextArr)
                 break   
             case 'compress':
-                compress(comandTextArr)
-                break    
+                await compress(comandTextArr)
+                console.log('compress finished')
+                break  
+            case 'decompress':
+                await decompress(comandTextArr)
+                console.log('decompress finished')
+                break      
         }
     }else{
         throw new Error(errorMessage)
