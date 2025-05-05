@@ -10,6 +10,7 @@ import { osInfo } from "./os-info/os-info.js";
 import { createDir } from "./fs/create-dir.js";
 import { rename } from "./fs/rename.js";
 import { copyMove } from "./fs/copy.js";
+import { deleteFile } from "./fs/delete.js";
 
 export default async function router(comandText){
     const errorMessage = 'Invalid input'
@@ -60,7 +61,10 @@ export default async function router(comandText){
                 break    
             case 'mv':
                 await copyMove(comandTextArr, true)
-                break   
+                break
+            case 'rm':
+                await deleteFile(comandTextArr)
+                break       
         }
     }else{
         throw new Error(errorMessage)
