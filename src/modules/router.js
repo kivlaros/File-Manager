@@ -9,7 +9,7 @@ import { calculateHash } from "./hash/hash.js";
 import { osInfo } from "./os-info/os-info.js";
 import { createDir } from "./fs/create-dir.js";
 import { rename } from "./fs/rename.js";
-import { copy } from "./fs/copy.js";
+import { copyMove } from "./fs/copy.js";
 
 export default async function router(comandText){
     const errorMessage = 'Invalid input'
@@ -56,8 +56,11 @@ export default async function router(comandText){
                 await rename(comandTextArr)
                 break
             case 'cp':
-                await copy(comandTextArr)
+                await copyMove(comandTextArr)
                 break    
+            case 'mv':
+                await copyMove(comandTextArr, true)
+                break   
         }
     }else{
         throw new Error(errorMessage)
