@@ -6,6 +6,7 @@ import { getPath } from "./assist/get-path.js";
 import { compress } from "./zip/compress.js";
 import { decompress } from "./zip/decompress.js";
 import { calculateHash } from "./hash/hash.js";
+import { osInfo } from "./os-info/os-info.js";
 
 export default async function router(comandText){
     const errorMessage = 'Invalid input'
@@ -42,7 +43,10 @@ export default async function router(comandText){
                 break      
             case 'hash':
                 await calculateHash(comandTextArr)
-                break    
+                break
+            case 'os':
+                osInfo(comandTextArr)
+                break       
         }
     }else{
         throw new Error(errorMessage)
